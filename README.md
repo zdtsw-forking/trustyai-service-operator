@@ -10,7 +10,7 @@ The operator ensures the service is properly configured, is discoverable by Prom
 ## Prerequisites
 
 - Kubernetes cluster v1.19+ or OpenShift cluster v4.6+
-- `kubectl` v1.19+ or `oc` client v4.6+
+- install `kubectl` v1.19+ or `oc` client v4.6+
 
 ## Installation using pre-built Operator image
 
