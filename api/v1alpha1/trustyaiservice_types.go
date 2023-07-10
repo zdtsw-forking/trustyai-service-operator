@@ -23,6 +23,7 @@ import (
 
 // TrustyAIService is the Schema for the trustyaiservices API
 // +kubebuilder:object:root=true
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 type TrustyAIService struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -35,7 +36,6 @@ type TrustyAIService struct {
 type StorageSpec struct {
 	Format string `json:"format"`
 	Folder string `json:"folder"`
-	PV     string `json:"pv"`
 	Size   string `json:"size"`
 }
 
@@ -45,7 +45,8 @@ type DataSpec struct {
 }
 
 type MetricsSpec struct {
-	Schedule string `json:"schedule"`
+	Schedule  string `json:"schedule"`
+	BatchSize *int   `json:"batchSize,omitempty"`
 }
 
 // TrustyAIServiceSpec defines the desired state of TrustyAIService

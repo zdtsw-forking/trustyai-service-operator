@@ -22,7 +22,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	monitoringv1 "github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring/v1"
-	trustyaiopendatahubiov1alpha1 "github.com/ruivieira/trustyai-service-operator/api/v1alpha1"
+	trustyaiopendatahubiov1alpha1 "github.com/trustyai-explainability/trustyai-service-operator/api/v1alpha1"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -72,7 +72,6 @@ func createDefaultCR() *trustyaiopendatahubiov1alpha1.TrustyAIService {
 			Storage: trustyaiopendatahubiov1alpha1.StorageSpec{
 				Format: "PVC",
 				Folder: "/data",
-				PV:     "mypv",
 				Size:   "1Gi",
 			},
 			Data: trustyaiopendatahubiov1alpha1.DataSpec{
@@ -255,7 +254,6 @@ var _ = Describe("TrustyAI operator", func() {
 			}, time.Second*10, time.Millisecond*250).Should(Succeed(), "failed to get Service")
 
 			Expect(service.Annotations["prometheus.io/path"]).Should(Equal("/q/metrics"))
-			Expect(service.Annotations["prometheus.io/port"]).Should(Equal("8080"))
 			Expect(service.Annotations["prometheus.io/scheme"]).Should(Equal("http"))
 			Expect(service.Annotations["prometheus.io/scrape"]).Should(Equal("true"))
 			Expect(service.Namespace).Should(Equal(namespace))
@@ -311,7 +309,6 @@ var _ = Describe("TrustyAI operator", func() {
 				}, time.Second*10, time.Millisecond*250).Should(Succeed(), "failed to get Service")
 
 				Expect(service.Annotations["prometheus.io/path"]).Should(Equal("/q/metrics"))
-				Expect(service.Annotations["prometheus.io/port"]).Should(Equal("8080"))
 				Expect(service.Annotations["prometheus.io/scheme"]).Should(Equal("http"))
 				Expect(service.Annotations["prometheus.io/scrape"]).Should(Equal("true"))
 				Expect(service.Namespace).Should(Equal(namespace))
